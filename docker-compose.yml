@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  dev:
+    build: 
+      context: .
+      args:
+        - USER42=${USER42:-student}
+        - MAIL42=${MAIL42:-student@student.42madrid.com}
+    container_name: 42-dev
+    volumes:
+      - .:/home/student/workspace
+      - ~/.gitconfig:/home/student/.gitconfig:ro
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    stdin_open: true
+    tty: true
+    working_dir: /home/student/workspace
+    environment:
+      - TERM=xterm-256color
+      - USER42=${USER42:-student}
+      - MAIL42=${MAIL42:-student@student.42madrid.com}
+    ports:
+      - "8080:8080"  # For web servers if needed
+
+  # Additional service for automated testing
+  test:
+    build: 
+      context: .
+      args:
+        - USER42=${USER42:-student}
+        - MAIL42=${MAIL42:-student@student.42madrid.com}
+    container_name: 42-test
+    volumes:
+      - .:/home/student/workspace
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    working_dir: /home/student/workspace
+    environment:
+      - USER42=${USER42:-student}
+      - MAIL42=${MAIL42:-student@student.42madrid.com}
+    command: ["./scripts/test.sh"]

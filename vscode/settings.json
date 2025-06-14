@@ -1,0 +1,95 @@
+{
+    // 42 School Norminette Settings
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": false,
+    "editor.renderWhitespace": "all",
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.encoding": "utf8",
+    
+    // 42 Header Configuration
+    "42header.username": "${env:USER42}",
+    "42header.email": "${env:MAIL42}",
+    
+    // C/C++ Configuration
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, UseTab: ForIndentation, TabWidth: 4, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false }",
+    "C_Cpp.formatting": "clangFormat",
+    "C_Cpp.intelliSenseEngine": "default",
+    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.autocomplete": "default",
+    
+    // Norminette Configuration
+    "norminette.command": "norminette",
+    "norminette.active": true,
+    
+    // Editor Configuration
+    "workbench.colorTheme": "Material Theme Darker High Contrast",
+    "workbench.iconTheme": "material-icon-theme",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.fontSize": 14,
+    
+    // Git Configuration
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "gitlens.currentLine.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+    
+    // File Explorer
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    
+    // Search Configuration
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true,
+        "**/.git": true,
+        "**/.*": true
+    },
+    
+    // Editor Behavior
+    "editor.minimap.enabled": true,
+    "editor.lineNumbers": "on",
+    "editor.rulers": [80],
+    "editor.wordWrap": "off",
+    "editor.cursorBlinking": "blink",
+    "editor.cursorStyle": "line",
+    
+    // Bracket Pair Colorization
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": true,
+    
+    // Auto Save
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    
+    // Formatting
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false,
+    "editor.formatOnType": false,
+    
+    // Language Specific Settings
+    "[c]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "editor.tabSize": 4,
+        "editor.insertSpaces": false
+    },
+    "[h]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools", 
+        "editor.tabSize": 4,
+        "editor.insertSpaces": false
+    },
+    "[makefile]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": false
+    },
+    
+    // Python Configuration (for norminette)
+    "python.defaultInterpreterPath": "/usr/bin/python3",
+    
+    // Remote Development
+    "remote.autoForwardPorts": false,
+    "remote.restoreForwardedPorts": true
+}

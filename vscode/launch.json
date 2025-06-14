@@ -1,0 +1,90 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug C Program",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/${input:programPath}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Build with 42 flags",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "detail": "Debug C program with GDB"
+        },
+        {
+            "name": "Debug with Arguments",
+            "type": "cppdbg", 
+            "request": "launch",
+            "program": "${workspaceFolder}/${input:programPath}",
+            "args": ["${input:programArgs}"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing", 
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Build with 42 flags",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "detail": "Debug C program with custom arguments"
+        },
+        {
+            "name": "Attach to Process",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/${input:programPath}",
+            "processId": "${input:processId}",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "miDebuggerPath": "/usr/bin/gdb",
+            "detail": "Attach debugger to running process"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "programPath",
+            "description": "Path to the program to debug (relative to workspace)",
+            "default": "program",
+            "type": "promptString"
+        },
+        {
+            "id": "programArgs",
+            "description": "Program arguments (space-separated)",
+            "default": "",
+            "type": "promptString"
+        },
+        {
+            "id": "processId",
+            "description": "Process ID to attach to",
+            "type": "promptString"
+        }
+    ]
+}

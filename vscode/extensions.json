@@ -1,0 +1,19 @@
+{
+    "recommendations": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "kube.42header",
+        "hroussea.42-norminette-v2",
+        "keyhr.42-c-format",
+        "ms-vscode-remote.remote-containers",
+        "ms-vscode-remote.remote-ssh",
+        "ms-vscode.hexeditor",
+        "vadimcn.vscode-lldb",
+        "ms-python.python",
+        "redhat.vscode-yaml",
+        "eamodio.gitlens",
+        "PKief.material-icon-theme",
+        "zhuangtongfa.material-theme",
+        "ms-vscode.vscode-json"
+    ]
+}

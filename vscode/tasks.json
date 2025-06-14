@@ -1,0 +1,156 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build in Docker",
+            "type": "shell",
+            "command": "docker-compose",
+            "args": ["run", "--rm", "dev", "make"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Compile project using make inside Docker container"
+        },
+        {
+            "label": "Build with 42 flags",
+            "type": "shell", 
+            "command": "docker-compose",
+            "args": ["run", "--rm", "dev", "gcc", "-Wall", "-Wextra", "-Werror", "-o", "${fileBasenameNoExtension}", "${file}"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Compile current file with 42 flags"
+        },
+        {
+            "label": "Run Norminette",
+            "type": "shell",
+            "command": "docker-compose",
+            "args": ["run", "--rm", "dev", "norminette", "${file}"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Check current file with norminette"
+        },
+        {
+            "label": "Run Norminette on all files",
+            "type": "shell",
+            "command": "docker-compose", 
+            "args": ["run", "--rm", "dev", "norminette", "*.c", "*.h"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Check all C files with norminette"
+        },
+        {
+            "label": "Run Valgrind",
+            "type": "shell",
+            "command": "docker-compose",
+            "args": ["run", "--rm", "dev", "valgrind", "--tool=helgrind", "${input:programName}"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Run Valgrind with Helgrind for thread checking"
+        },
+        {
+            "label": "Run Valgrind (Memory Check)",
+            "type": "shell",
+            "command": "docker-compose",
+            "args": ["run", "--rm", "dev", "valgrind", "--leak-check=full", "--show-leak-kinds=all", "--track-origins=yes", "${input:programName}"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Run Valgrind with full memory leak detection"
+        },
+        {
+            "label": "Open Dev Container",
+            "type": "shell",
+            "command": "./scripts/run.sh",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "detail": "Open interactive development container"
+        },
+        {
+            "label": "Test Environment",
+            "type": "shell",
+            "command": "./scripts/test.sh",
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Run all environment tests"
+        },
+        {
+            "label": "Clean Build",
+            "type": "shell",
+            "command": "docker-compose",
+            "args": ["run", "--rm", "dev", "make", "fclean"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Clean all build artifacts"
+        },
+        {
+            "label": "Rebuild Environment",
+            "type": "shell",
+            "command": "./scripts/build.sh",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Rebuild Docker environment"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "programName",
+            "description": "Program name to run",
+            "default": "./program",
+            "type": "promptString"
+        }
+    ]
+}
