@@ -19,7 +19,7 @@ fi
 REPO_NAME="$1"
 
 # Check if Docker environment exists
-if [[ "$(docker images -q 42-docker-enviroment_dev 2> /dev/null)" == "" ]]; then
+if [[ "$(docker images -q 42-docker-enviroment-dev 2> /dev/null)" == "" ]]; then
     echo "❌ Docker environment not found. Run ./scripts/build.sh first"
     exit 1
 fi

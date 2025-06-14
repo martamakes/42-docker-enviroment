@@ -13,7 +13,7 @@ fi
 
 # Test 1: Check if image exists or can be built
 echo "1️⃣ Checking Docker environment..."
-if [[ "$(docker images -q 42-docker-enviroment_dev 2> /dev/null)" == "" ]]; then
+if [[ "$(docker images -q 42-docker-enviroment-dev 2> /dev/null)" == "" ]]; then
     echo "🔨 Image not found, building first..."
     ./scripts/build.sh
 fi

@@ -12,8 +12,11 @@ A complete, portable development environment for 42 School students that replica
 - ✅ **42 Header** (automatic header insertion)
 - ✅ **VS Code integration** with 42-specific extensions
 - ✅ **Ubuntu 22.04** (identical to 42 Madrid)
+- ✅ **Git & SSH** (automatic configuration and key management)
 
 **No Setup Headaches**: Skip the tedious installation and configuration process. Everything works out of the box.
+
+**Portable SSH Keys**: Your Git configuration and SSH keys are automatically backed up and restored across different computers.
 
 ## 📋 Prerequisites
 
@@ -66,28 +69,23 @@ cd 42-docker-environment
 chmod +x scripts/*.sh
 ```
 
-### 2. Configure Your 42 Profile
-Edit the `.env` file (create if it doesn't exist):
+### 2. Complete Installation
 ```bash
-# Your 42 credentials
-USER42=your_login_here
-MAIL42=your_login_here@student.42madrid.com
-
-# For other campuses:
-# Barcelona: your_login@student.42barcelona.com
-# France: your_login@student.42.fr
-# Check your campus-specific email format
+./scripts/install.sh
 ```
 
-### 3. Build Environment
-```bash
-./scripts/build.sh
-```
+The installer will automatically:
+- ✅ **Configure your 42 profile** (login, campus, email)
+- ✅ **Setup Git configuration** (name, email, GitHub username)
+- ✅ **Generate SSH keys** for GitHub (if chosen)
+- ✅ **Build the Docker environment**
+- ✅ **Run validation tests**
 
-### 4. Start Development Environment
-```bash
-./scripts/run.sh
-```
+#### Configuration Options:
+- **42 Login**: Your 42 username (supports hyphens: `mvigara-`)
+- **Campus**: Madrid, Barcelona, France, or custom
+- **GitHub Username**: For repository cloning
+- **SSH Setup**: Choose automatic SSH key generation (recommended)
 
 You'll be inside a Ubuntu 22.04 container with all 42 tools ready!
 
@@ -163,6 +161,59 @@ gdb ./philo
 # - Norminette is functional
 # - Threading works correctly
 ```
+
+### Working with Git Repositories
+
+#### Quick Clone (Recommended)
+```bash
+# Clone any of your repositories quickly
+./quick_clone.sh philosophers
+./quick_clone.sh libft
+./quick_clone.sh ft_printf
+```
+
+#### Manual Git Operations
+```bash
+# Start environment
+./scripts/run.sh
+
+# Inside container - Git is already configured!
+git clone git@github.com:yourusername/philosophers.git
+cd philosophers
+make
+norm *.c
+./philo 4 800 200 200
+```
+
+#### SSH Key Management
+
+**🔑 SSH keys are portable across computers!**
+
+- **First time**: SSH keys are generated and saved to `.ssh-backup/`
+- **Future uses**: Keys are automatically restored from backup
+- **New computer**: Just clone this repo and run - SSH keys work immediately!
+
+```bash
+# SSH keys are automatically backed up to:
+# /your-project/.ssh-backup/id_ed25519
+# /your-project/.ssh-backup/id_ed25519.pub
+
+# On any new computer:
+git clone https://github.com/yourusername/42-docker-environment.git
+cd 42-docker-environment
+./scripts/run.sh
+# SSH keys are automatically restored!
+```
+
+**⚠️ First-time SSH Setup:**
+
+If you chose SSH during installation, you'll need to add your public key to GitHub once:
+
+1. The installer shows your SSH public key
+2. Go to: https://github.com/settings/ssh/new
+3. Title: "42 Docker Environment"
+4. Paste your key and save
+5. Done! Works everywhere now.
 
 ## 💻 VS Code Integration
 
@@ -266,6 +317,15 @@ docker system prune
 # Reload VS Code window
 ```
 
+### Vim Configuration Issues
+```bash
+# If you get vim encoding errors, run inside container:
+./fix_vimrc.sh
+
+# Or manually fix:
+sed -i 's/listchars=tab:>-,trail:·/listchars=tab:>-,trail:./' ~/.vimrc
+```
+
 ### Norminette Issues
 ```bash
 # Inside container, verify installation
@@ -279,9 +339,11 @@ norminette test-files/test_environment.c
 
 ```bash
 # Container Management
-./scripts/build.sh              # Build environment
+./scripts/install.sh            # Complete setup (run once)
+./quick_clone.sh <repo>         # Quick clone GitHub repos
 ./scripts/run.sh                # Start environment  
 ./scripts/test.sh               # Test environment
+./scripts/build.sh              # Rebuild environment (if needed)
 docker-compose down             # Stop all containers
 
 # Inside Container - Development

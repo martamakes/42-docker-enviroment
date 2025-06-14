@@ -3,7 +3,7 @@
 echo "🚀 Starting 42 School development environment..."
 
 # Check if the image exists
-if [[ "$(docker images -q 42-docker-enviroment_dev 2> /dev/null)" == "" ]]; then
+if [[ "$(docker images -q 42-docker-enviroment-dev 2> /dev/null)" == "" ]]; then
     echo "❌ Docker image not found. Run ./scripts/build.sh first"
     exit 1
 fi

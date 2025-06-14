@@ -84,9 +84,9 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 
-" Show tabs as characters
+" Show tabs as characters (fixed encoding issue)
 set list
-set listchars=tab:>-,trail:·
+set listchars=tab:>-,trail:.
 
 " Disable arrow keys to force hjkl usage
 noremap <Up> <NOP>
