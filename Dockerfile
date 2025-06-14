@@ -37,17 +37,18 @@ RUN apt-get update && apt-get install -y \
 RUN python3 -m pip install --upgrade pip setuptools && \
     python3 -m pip install norminette
 
-# Create student user
+# Create student user with proper home directory
 RUN useradd -m -s /bin/zsh $USER && \
     echo "$USER:$USER" | chpasswd && \
-    usermod -aG sudo $USER
+    usermod -aG sudo $USER && \
+    chown -R $USER:$USER $HOME
 
 # Switch to student user
 USER $USER
 WORKDIR $HOME
 
 # Install Oh My Zsh for better shell experience
-RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+RUN RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Copy configuration files
 COPY --chown=$USER:$USER dotfiles/.vimrc $HOME/.vimrc
@@ -66,8 +67,10 @@ ENV MAIL42=student@student.42madrid.com
 # Configure gdb for debugging
 RUN echo "set auto-load safe-path /" >> $HOME/.gdbinit
 
-# Create useful aliases
-RUN echo 'alias ll="ls -la"' >> $HOME/.zshrc && \
+# Create useful aliases (append to existing .zshrc)
+RUN echo '' >> $HOME/.zshrc && \
+    echo '# 42 School aliases' >> $HOME/.zshrc && \
+    echo 'alias ll="ls -la"' >> $HOME/.zshrc && \
     echo 'alias la="ls -la"' >> $HOME/.zshrc && \
     echo 'alias ..="cd .."' >> $HOME/.zshrc && \
     echo 'alias norm="norminette"' >> $HOME/.zshrc && \
