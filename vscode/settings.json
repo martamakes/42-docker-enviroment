@@ -11,6 +11,7 @@
     // 42 Header Configuration
     "42header.username": "${env:USER42}",
     "42header.email": "${env:MAIL42}",
+    "42header.school": "42madrid",
     
     // C/C++ Configuration
     "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, UseTab: ForIndentation, TabWidth: 4, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false }",
@@ -18,6 +19,19 @@
     "C_Cpp.intelliSenseEngine": "default",
     "C_Cpp.errorSquiggles": "enabled",
     "C_Cpp.autocomplete": "default",
+    "C_Cpp.default.cStandard": "c99",
+    "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+    "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
+    "C_Cpp.default.includePath": [
+        "/usr/include",
+        "/usr/include/x86_64-linux-gnu",
+        "${workspaceFolder}/**"
+    ],
+    "C_Cpp.default.compilerArgs": [
+        "-Wall",
+        "-Wextra",
+        "-Werror"
+    ],
     
     // Norminette Configuration
     "norminette.command": "norminette",
@@ -91,5 +105,32 @@
     
     // Remote Development
     "remote.autoForwardPorts": false,
-    "remote.restoreForwardedPorts": true
+    "remote.restoreForwardedPorts": true,
+    
+    // Dev Container Specific
+    "remote.containers.defaultExtensions": [
+        "ms-vscode.cpptools",
+        "daltonmenezes.42-header",
+        "evilcat.norminette-42"
+    ],
+    
+    // Container File Watching
+    "files.watcherExclude": {
+        "**/node_modules/**": true,
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/.*": true
+    },
+    
+    // Terminal in Container
+    "terminal.integrated.profiles.linux": {
+        "zsh": {
+            "path": "/bin/zsh",
+            "args": ["-l"]
+        },
+        "bash": {
+            "path": "/bin/bash",
+            "args": ["-l"]
+        }
+    }
 }

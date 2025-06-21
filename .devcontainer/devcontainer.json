@@ -1,0 +1,99 @@
+{
+  "name": "42 School Development Environment",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "dev",
+  "workspaceFolder": "/home/student/workspace",
+  "shutdownAction": "stopCompose",
+  
+  // Container features and settings
+  "features": {},
+  
+  // VS Code settings for the container
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "/bin/zsh",
+            "args": []
+          }
+        },
+        "files.associations": {
+          "*.c": "c",
+          "*.h": "c"
+        },
+        "C_Cpp.default.cStandard": "c99",
+        "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+        "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
+        "C_Cpp.default.includePath": [
+          "/usr/include",
+          "/usr/include/x86_64-linux-gnu",
+          "${workspaceFolder}/**"
+        ],
+        "C_Cpp.default.defines": [],
+        "C_Cpp.default.compilerArgs": [
+          "-Wall",
+          "-Wextra",
+          "-Werror"
+        ],
+        "editor.insertSpaces": false,
+        "editor.detectIndentation": false,
+        "editor.tabSize": 4,
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        "norminette.severity": "error"
+      },
+      
+      "extensions": [
+        // C/C++ Development
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.cpptools-themes",
+        
+        // 42 School specific
+        "daltonmenezes.42-header",
+        "evilcat.norminette-42",
+        
+        // Git and collaboration
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+        
+        // Development utilities
+        "aaron-bond.better-comments",
+        "formulahendry.code-runner",
+        "ms-vscode.hexeditor",
+        "streetsidesoftware.code-spell-checker",
+        
+        // Debugging and analysis
+        "vadimcn.vscode-lldb",
+        "ms-vscode.makefile-tools",
+        
+        // Theme and UI
+        "pkief.material-icon-theme",
+        "zhuangtongfa.material-theme"
+      ]
+    }
+  },
+  
+  // Port forwarding
+  "forwardPorts": [],
+  
+  // Commands to run after container creation
+  "postCreateCommand": "echo '🚀 42 School Environment Ready! Welcome to Ubuntu 22.04 with all 42 tools configured.'",
+  
+  // User to run as inside container
+  "remoteUser": "student",
+  
+  // Mount the Docker socket for docker-in-docker if needed
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ],
+  
+  // Environment variables
+  "remoteEnv": {
+    "USER42": "${localEnv:USER42}",
+    "MAIL42": "${localEnv:MAIL42}",
+    "GITHUB_USERNAME": "${localEnv:GITHUB_USERNAME}"
+  }
+}

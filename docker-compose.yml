@@ -9,6 +9,8 @@ services:
     volumes:
       - .:/home/student/workspace
       - ~/.gitconfig:/home/student/.gitconfig:ro
+      - .ssh-backup:/home/student/.ssh:rw
+      - vscode-server-extensions:/home/student/.vscode-server
     cap_add:
       - SYS_PTRACE
     security_opt:
@@ -42,3 +44,6 @@ services:
       - USER42=${USER42:-student}
       - MAIL42=${MAIL42:-student@student.42madrid.com}
     command: ["./scripts/test.sh"]
+
+volumes:
+  vscode-server-extensions:
