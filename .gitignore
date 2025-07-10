@@ -1,0 +1,59 @@
+# Docker environment files
+.docker-built
+.env
+
+# VS Code workspace files
+.vscode/
+
+# Git files
+.git/
+.gitignore
+
+# Build artifacts
+*.o
+*.a
+*.so
+*.dylib
+*.exe
+
+# Test executables
+test-files/test_environment
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor temporary files
+*~
+*.swp
+*.swo
+.tmp/
+
+# Logs
+*.log
+
+# IDE files
+.idea/
+*.iml
+.project
+.cproject
+.settings/
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# Temporary directories
+tmp/
+temp/
+
+.ssh-backup/
+make_executable.sh
+philos/
+minishell/
