@@ -17,6 +17,9 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     wget \
+    # Libraries needed for 42 projects
+    libreadline-dev \
+    libncurses5-dev \
     # Python for norminette
     python3 \
     python3-pip \
@@ -27,6 +30,11 @@ RUN apt-get update && apt-get install -y \
     htop \
     tree \
     man-db \
+    # Debug and tracing tools
+    strace \
+    ltrace \
+    lsof \
+    netstat-persistent \
     # Additional utilities
     libc6-dev \
     pkg-config \
@@ -76,7 +84,11 @@ RUN echo '' >> $HOME/.zshrc && \
     echo 'alias norm="norminette"' >> $HOME/.zshrc && \
     echo 'alias valgrind-full="valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes"' >> $HOME/.zshrc && \
     echo 'alias 42header="vim +Stdheader"' >> $HOME/.zshrc && \
-    echo 'alias gcc42="gcc -Wall -Wextra -Werror"' >> $HOME/.zshrc
+    echo 'alias gcc42="gcc -Wall -Wextra -Werror"' >> $HOME/.zshrc && \
+    echo '# Debug aliases' >> $HOME/.zshrc && \
+    echo 'alias strace-philo="strace -f -e trace=sem_wait,sem_post"' >> $HOME/.zshrc && \
+    echo 'alias strace-full="strace -f -tt"' >> $HOME/.zshrc && \
+    echo 'alias check-sems="ls -la /dev/shm/ | grep philo"' >> $HOME/.zshrc
 
 # Create workspace directory
 RUN mkdir -p $HOME/workspace
