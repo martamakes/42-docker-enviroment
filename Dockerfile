@@ -34,16 +34,17 @@ RUN apt-get update && apt-get install -y \
     strace \
     ltrace \
     lsof \
-    netstat-persistent \
+    net-tools \
     # Additional utilities
     libc6-dev \
     pkg-config \
     software-properties-common \
     && rm -rf /var/lib/apt/lists/*
 
-# Install norminette (official 42 version)
+# Install norminette (official 42 version) and c_formatter_42
 RUN python3 -m pip install --upgrade pip setuptools && \
-    python3 -m pip install norminette
+    python3 -m pip install norminette && \
+    python3 -m pip install c-formatter-42
 
 # Create student user with proper home directory
 RUN useradd -m -s /bin/zsh $USER && \
@@ -82,13 +83,17 @@ RUN echo '' >> $HOME/.zshrc && \
     echo 'alias la="ls -la"' >> $HOME/.zshrc && \
     echo 'alias ..="cd .."' >> $HOME/.zshrc && \
     echo 'alias norm="norminette"' >> $HOME/.zshrc && \
+    echo 'alias cf42="c_formatter_42"' >> $HOME/.zshrc && \
     echo 'alias valgrind-full="valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes"' >> $HOME/.zshrc && \
     echo 'alias 42header="vim +Stdheader"' >> $HOME/.zshrc && \
     echo 'alias gcc42="gcc -Wall -Wextra -Werror"' >> $HOME/.zshrc && \
     echo '# Debug aliases' >> $HOME/.zshrc && \
     echo 'alias strace-philo="strace -f -e trace=sem_wait,sem_post"' >> $HOME/.zshrc && \
     echo 'alias strace-full="strace -f -tt"' >> $HOME/.zshrc && \
-    echo 'alias check-sems="ls -la /dev/shm/ | grep philo"' >> $HOME/.zshrc
+    echo 'alias check-sems="ls -la /dev/shm/ | grep philo"' >> $HOME/.zshrc && \
+    echo '# Norma fixing aliases' >> $HOME/.zshrc && \
+    echo 'alias fix-norm="cf42 srcs/*.c srcs/*/*.c includes/*.h"' >> $HOME/.zshrc && \
+    echo 'alias check-norm="norm includes/ srcs/ | grep Error | wc -l"' >> $HOME/.zshrc
 
 # Create workspace directory
 RUN mkdir -p $HOME/workspace
