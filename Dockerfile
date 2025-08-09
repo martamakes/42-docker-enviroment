@@ -39,7 +39,15 @@ RUN apt-get update && apt-get install -y \
     libc6-dev \
     pkg-config \
     software-properties-common \
+    # Node.js dependencies
+    ca-certificates \
+    gnupg \
+    lsb-release \
     && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js 20.x (LTS)
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs
 
 # Install norminette (official 42 version) and c_formatter_42
 RUN python3 -m pip install --upgrade pip setuptools && \
@@ -58,6 +66,9 @@ WORKDIR $HOME
 
 # Install Oh My Zsh for better shell experience
 RUN RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Install Claude Code globally
+RUN npm install -g @anthropic-ai/claude-code
 
 # Copy configuration files
 COPY --chown=$USER:$USER dotfiles/.vimrc $HOME/.vimrc
@@ -93,7 +104,9 @@ RUN echo '' >> $HOME/.zshrc && \
     echo 'alias check-sems="ls -la /dev/shm/ | grep philo"' >> $HOME/.zshrc && \
     echo '# Norma fixing aliases' >> $HOME/.zshrc && \
     echo 'alias fix-norm="cf42 srcs/*.c srcs/*/*.c includes/*.h"' >> $HOME/.zshrc && \
-    echo 'alias check-norm="norm includes/ srcs/ | grep Error | wc -l"' >> $HOME/.zshrc
+    echo 'alias check-norm="norm includes/ srcs/ | grep Error | wc -l"' >> $HOME/.zshrc && \
+    echo '# Claude Code alias' >> $HOME/.zshrc && \
+    echo 'alias claude="claude-code"' >> $HOME/.zshrc
 
 # Create workspace directory
 RUN mkdir -p $HOME/workspace
