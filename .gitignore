@@ -57,3 +57,5 @@ temp/
 make_executable.sh
 philos/
 minishell/
+.config/
+.cache/
