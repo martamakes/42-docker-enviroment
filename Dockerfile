@@ -54,8 +54,6 @@ RUN python3 -m pip install --upgrade pip setuptools && \
     python3 -m pip install norminette && \
     python3 -m pip install c-formatter-42
 
-# Claude Code will be used from the host system
-# Skip installation to avoid npm hanging issues in Docker
 
 # Create student user with proper home directory
 RUN useradd -m -s /bin/zsh $USER && \
@@ -105,8 +103,6 @@ RUN echo '' >> $HOME/.zshrc && \
     echo '# Norma fixing aliases' >> $HOME/.zshrc && \
     echo 'alias fix-norm="cf42 srcs/*.c srcs/*/*.c includes/*.h"' >> $HOME/.zshrc && \
     echo 'alias check-norm="norm includes/ srcs/ | grep Error | wc -l"' >> $HOME/.zshrc && \
-    echo '# Claude Code (use from host)' >> $HOME/.zshrc && \
-    echo 'echo "💡 Use Claude Code from host: exit and run claude from macOS"' >> $HOME/.zshrc
 
 # Create workspace directory
 RUN mkdir -p $HOME/workspace
